@@ -1,0 +1,14 @@
+[Unit]
+Description=LQCD MCP Proxy Service
+After=network.target
+
+[Service]
+User=lqcd
+Group=lqcd
+Environment="PATH=/usr/local/slurm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+WorkingDirectory=/usr/local/lqcd_proxy
+ExecStart=/usr/local/lqcd_proxy/fastmcp-env/bin/python3 /usr/local/lqcd_proxy/jlab-lqcd-mcp-proxy/lqcd_proxy_server.py --port=8000
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
