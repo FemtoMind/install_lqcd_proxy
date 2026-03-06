@@ -71,13 +71,14 @@ touch $dir/FastMCP_Version_$fmcp_version
 mkdir -p $dir/logs
 
 # create a virtual environment
-python3 -m venv $dir/fastmcp-env
+uv python install --install-dir $dir/fastmcp-python 3.12
+uv venv --clear $dir/fastmcp-env
 source $dir/fastmcp-env/bin/activate
-pip install --no-index --find-links=$dir/proxy_packages -r $dir/proxy_packages/requirements.txt
+uv pip install --no-index --find-links=$dir/proxy_packages -r $dir/proxy_packages/requirements.txt
 
 #link production server env
 ln -s $dir/jlab-lqcd-mcp-proxy/.server_env.prod $dir/jlab-lqcd-mcp-proxy/.server_env 
 
 # change the owner of the directory
-chown -R $user:$user "$dir"
+chown -R $user:hpc "$dir"
 
